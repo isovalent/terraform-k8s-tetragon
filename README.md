@@ -5,7 +5,7 @@ An opinionated Terraform module that can be used to install and manage Tetragon 
 ## Example Usage
 ```hcl
 module "tetragon" {
-  source = "git::ssh://git@github.com:isovalent/terraform-k8s-tetragon.git?ref=<release-tag>"
+  source = "git::ssh://git@github.com/isovalent/terraform-k8s-tetragon.git?ref=<release-tag>"
 
   # Wait until Cilium CNI is done.
   depends_on = [
@@ -18,7 +18,7 @@ module "tetragon" {
   tetragon_helm_chart                     = var.tetragon_helm_chart
   tetragon_namespace                      = var.tetragon_namespace
   path_to_kubeconfig_file                 = module.kubeadm_cluster.path_to_kubeconfig_file
-  tetragon_helm_values_override_file_path = var.tetragon_helm_values_override_file
+  tetragon_helm_values_override_file_path = var.tetragon_helm_values_override_file_path
   post_tetragon_install_script            = file("${path.module}/scripts/post-tetragon-install-script.sh")
   extra_provisioner_environment_variables = local.extra_provisioner_environment_variables
 }
@@ -61,7 +61,7 @@ No modules.
 | <a name="input_tetragon_helm_extra_args"></a> [tetragon\_helm\_extra\_args](#input\_tetragon\_helm\_extra\_args) | Extra arguments to be passed to the 'helm upgrade --install' command that installs Tetragon. | `string` | `""` | no |
 | <a name="input_tetragon_helm_release_name"></a> [tetragon\_helm\_release\_name](#input\_tetragon\_helm\_release\_name) | The name of the Helm release to use for tetragon. | `string` | `"tetragon"` | no |
 | <a name="input_tetragon_helm_values_file_path"></a> [tetragon\_helm\_values\_file\_path](#input\_tetragon\_helm\_values\_file\_path) | The path to the file containing the values to use when installing Tetragon. | `string` | n/a | yes |
-| <a name="input_tetragon_helm_values_override_file_path"></a> [tetragon\_helm\_values\_override\_file\_path](#input\_tetragon\_helm\_values\_override\_file\_path) | The path to the file containing the values to use when installing Tetragon. These values will override the ones in 'tetragon\_helm\_values\_file\_path'. | `string` | n/a | yes |
+| <a name="input_tetragon_helm_values_override_file_path"></a> [tetragon\_helm\_values\_override\_file\_path](#input\_tetragon\_helm\_values\_override\_file\_path) | The path to the file containing the values to use when installing Tetragon. These values will override the ones in 'tetragon\_helm\_values\_file\_path'. | `string` | `""` | no |
 | <a name="input_tetragon_helm_version"></a> [tetragon\_helm\_version](#input\_tetragon\_helm\_version) | The version of the Tetragon Helm chart to install. | `string` | n/a | yes |
 | <a name="input_tetragon_namespace"></a> [tetragon\_namespace](#input\_tetragon\_namespace) | The namespace in which to install Tetragon. | `string` | `"kube-system"` | no |
 

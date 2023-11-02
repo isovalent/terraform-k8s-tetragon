@@ -22,6 +22,7 @@ variable "tetragon_helm_values_file_path" {
 }
 
 variable "tetragon_helm_values_override_file_path" {
+  default     = ""
   description = "The path to the file containing the values to use when installing Tetragon. These values will override the ones in 'tetragon_helm_values_file_path'."
   type        = string
 }
