@@ -3,30 +3,30 @@
 An opinionated Terraform module that can be used to install and manage Tetragon on top of a Kubernetes cluster.
 
 <!-- BEGIN_TF_DOCS -->
-### Requirements
+## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.2.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | >= 3.1.1 |
 
-### Providers
+## Providers
 
 | Name | Version |
 |------|---------|
 | <a name="provider_null"></a> [null](#provider\_null) | >= 3.1.1 |
 
-### Modules
+## Modules
 
 No modules.
 
-### Resources
+## Resources
 
 | Name | Type |
 |------|------|
 | [null_resource.main](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 
-### Inputs
+## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
@@ -42,7 +42,7 @@ No modules.
 | <a name="input_tetragon_helm_version"></a> [tetragon\_helm\_version](#input\_tetragon\_helm\_version) | The version of the Tetragon Helm chart to install. | `string` | n/a | yes |
 | <a name="input_tetragon_namespace"></a> [tetragon\_namespace](#input\_tetragon\_namespace) | The namespace in which to install Tetragon. | `string` | `"kube-system"` | no |
 
-### Outputs
+## Outputs
 
 No outputs.
 <!-- END_TF_DOCS -->
