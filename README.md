@@ -2,6 +2,29 @@
 
 An opinionated Terraform module that can be used to install and manage Tetragon on top of a Kubernetes cluster.
 
+## Example Usage
+```hcl
+module "tetragon" {
+  source = "git::ssh://git@github.com:isovalent/terraform-k8s-tetragon.git?ref=<release-tag>"
+
+  # Wait until Cilium CNI is done.
+  depends_on = [
+    module.cilium
+  ]
+
+  tetragon_helm_release_name              = "tetragon"
+  tetragon_helm_values_file_path          = var.tetragon_helm_values_file_path
+  tetragon_helm_version                   = var.tetragon_helm_version
+  tetragon_helm_chart                     = var.tetragon_helm_chart
+  tetragon_namespace                      = var.tetragon_namespace
+  path_to_kubeconfig_file                 = module.kubeadm_cluster.path_to_kubeconfig_file
+  tetragon_helm_values_override_file_path = var.tetragon_helm_values_override_file
+  post_tetragon_install_script            = file("${path.module}/scripts/post-tetragon-install-script.sh")
+  extra_provisioner_environment_variables = local.extra_provisioner_environment_variables
+}
+```
+
+## Terraform Module Doc
 <!-- BEGIN_TF_DOCS -->
 ### Requirements
 
