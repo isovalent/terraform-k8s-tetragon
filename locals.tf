@@ -13,5 +13,11 @@ locals {
     PRE_TETRAGON_INSTALL_SCRIPT        = var.pre_tetragon_install_script != "" ? base64encode(var.pre_tetragon_install_script) : ""   // The script to execute before installing Tetragon.
     POST_TETRAGON_INSTALL_SCRIPT       = var.post_tetragon_install_script != "" ? base64encode(var.post_tetragon_install_script) : "" // The script to execute after installing Tetragon.
   }
-  provisioner_path = "${abspath(path.module)}/scripts/provisioner.sh"
+  provisioner_path        = "${abspath(path.module)}/scripts/provisioner.sh"
+  tp_deployer_environment = merge(var.extra_tp_deployer_environment_variables, local.tp_deployer_environment_variables) // The full set of environment variables passed to the TracingPolicy deployment script.
+  tp_deployer_environment_variables = {                                                                                 // The set of environment variables set by this module on the TracingPolicy deployment script.
+    KUBECONFIG = var.path_to_kubeconfig_file                                                                            // The path to the kubeconfig file
+    TP_DIR     = var.tetragon_tracingpolicy_directory                                                                   // The path to the TracingPolicies that should be deployed.
+  }
+  tp_deployer_path = "${abspath(path.module)}/scripts/tp-deployer.sh"
 }

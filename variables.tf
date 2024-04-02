@@ -38,9 +38,21 @@ variable "tetragon_namespace" {
   type        = string
 }
 
+variable "tetragon_tracingpolicy_directory" {
+  description = "Path to the directory where TracingPolicy files are stored which should automatically be applied. The directory can contain one or multiple valid TracingPoliciy YAML files."
+  default     = ""
+  type        = string
+}
+
 variable "extra_provisioner_environment_variables" {
   default     = {}
   description = "A map of extra environment variables to include when executing the provisioning script."
+  type        = map(string)
+}
+
+variable "extra_tp_deployer_environment_variables" {
+  default     = {}
+  description = "A map of extra environment variables to include when executing the TracingPolicy deployment script."
   type        = map(string)
 }
 

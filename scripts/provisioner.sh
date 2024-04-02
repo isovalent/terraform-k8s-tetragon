@@ -2,6 +2,12 @@
 
 set -euo pipefail
 
+# Wait for the Kubernetes API server to be reachable.
+while ! kubectl get namespace > /dev/null 2>&1;
+do
+  sleep 10
+done
+
 # Create the target namespace if it does not exist.
 kubectl create namespace "${TETRAGON_NAMESPACE}" --dry-run=client -o yaml | kubectl apply -f -
 
@@ -30,6 +36,22 @@ else
   --version "${TETRAGON_HELM_VERSION}" -n "${TETRAGON_NAMESPACE}" -f /dev/stdin ${TETRAGON_HELM_EXTRA_ARGS}
   rm -f tmp1
 fi
+
+# Wait for the Tetragon CRDs to be available before exiting. They should be installed by the Tetragon Operator.
+TETRAGON_CRD_AVAILABILITY_COUNT=1
+set +e
+until kubectl get crd tracingpolicies.cilium.io
+do
+  if [[ ${TETRAGON_CRD_AVAILABILITY_COUNT} -gt 60 ]];
+  then
+    echo "Tetragon CRDs are not available. Check Tetragon installation."
+    exit 1
+  else
+    TETRAGON_CRD_AVAILABILITY_COUNT=$((TETRAGON_CRD_AVAILABILITY_COUNT+1))
+    sleep 1
+  fi
+done
+set -e
 
 # Run any post-install script we may have been provided with.
 if [[ "${POST_TETRAGON_INSTALL_SCRIPT}" != "" ]];
