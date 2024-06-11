@@ -1,10 +1,6 @@
 name: Terraform docs and formatting
 on:
-  pull_request_target:
-    types:
-      - opened
-      - synchronize
-      - reopened
+  pull_request: {}
   push:
     branches:
       - main
@@ -15,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.6
         with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          ref: ${{ github.event.pull_request.head.sha }}
       - name: terraform fmt
         uses: dflook/terraform-fmt-check@v1.43.0
   docs:
@@ -24,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4.1.6
       with:
-        ref: ${{ github.ref }}
+        ref: ${{ github.event.pull_request.head.ref }}
     - name: Render terraform docs and push changes back to PR branch
       uses: terraform-docs/gh-actions@72ed18e5751c95dc36107dff832598081ff56eb9
       with:
