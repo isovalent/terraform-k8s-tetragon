@@ -10,6 +10,7 @@ resource "null_resource" "provisioner" {
 }
 
 resource "null_resource" "tp_deployer" {
+  count = var.tetragon_tracingpolicy_directory != "" ? 1 : 0
   depends_on = [
     null_resource.provisioner
   ]
