@@ -13,7 +13,7 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: terraform fmt
-        uses: dflook/terraform-fmt-check@v1.43.0
+        uses: dflook/terraform-fmt-check@v1.44.0
   docs:
     runs-on: ubuntu-22.04
     needs: formatting
