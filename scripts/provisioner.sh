@@ -37,21 +37,25 @@ else
   rm -f tmp1
 fi
 
-# Wait for the Tetragon CRDs to be available before exiting. They should be installed by the Tetragon Operator.
-TETRAGON_CRD_AVAILABILITY_COUNT=1
-set +e
-until kubectl get crd tracingpolicies.cilium.io
-do
-  if [[ ${TETRAGON_CRD_AVAILABILITY_COUNT} -gt 60 ]];
-  then
-    echo "Tetragon CRDs are not available. Check Tetragon installation."
-    exit 1
-  else
-    TETRAGON_CRD_AVAILABILITY_COUNT=$((TETRAGON_CRD_AVAILABILITY_COUNT+1))
-    sleep 1
-  fi
-done
-set -e
+# If asked to, wait for the Tetragon CRDs to be available before proceeding.
+# By default they are installed by the Tetragon operator, but it is now possible to install them out-of-band.
+if [[ "${WAIT_FOR_TETRAGON_CRDS}" == "true" ]];
+then
+  TETRAGON_CRD_AVAILABILITY_COUNT=1
+  set +e
+  until kubectl get crd tracingpolicies.cilium.io
+  do
+    if [[ ${TETRAGON_CRD_AVAILABILITY_COUNT} -gt 60 ]];
+    then
+      echo "Tetragon CRDs are not available. Check Tetragon installation."
+      exit 1
+    else
+      TETRAGON_CRD_AVAILABILITY_COUNT=$((TETRAGON_CRD_AVAILABILITY_COUNT+1))
+      sleep 1
+    fi
+  done
+  set -e
+fi
 
 # Run any post-install script we may have been provided with.
 if [[ "${POST_TETRAGON_INSTALL_SCRIPT}" != "" ]];

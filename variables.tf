@@ -72,3 +72,9 @@ variable "post_tetragon_install_script" {
   description = "A script to be run right after installing Tetragon."
   type        = string
 }
+
+variable "wait_for_tetragon_crds" {
+  default     = true
+  description = "Whether to wait for the Tetragon CRDs to be created before proceeding with the post-install script."
+  type        = bool
+}
