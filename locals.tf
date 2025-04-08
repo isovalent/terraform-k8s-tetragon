@@ -18,8 +18,10 @@ locals {
   provisioner_path        = "${abspath(path.module)}/scripts/provisioner.sh"
   tp_deployer_environment = merge(var.extra_tp_deployer_environment_variables, local.tp_deployer_environment_variables) // The full set of environment variables passed to the TracingPolicy deployment script.
   tp_deployer_environment_variables = {                                                                                 // The set of environment variables set by this module on the TracingPolicy deployment script.
-    KUBECONFIG = var.path_to_kubeconfig_file                                                                            // The path to the kubeconfig file
-    TP_DIR     = var.tetragon_tracingpolicy_directory                                                                   // The path to the TracingPolicies that should be deployed.
+    KUBECONFIG                     = var.path_to_kubeconfig_file                                                        // The path to the kubeconfig file
+    TP_DIR                         = var.tetragon_tracingpolicy_directory                                               // The path to the TracingPolicies that should be deployed.
+    WAIT_FOR_TETRAGON_CRDS         = var.wait_for_tetragon_crds
+    WAIT_FOR_TETRAGON_CRDS_TIMEOUT = var.wait_for_tetragon_crds_timeout
   }
   tp_deployer_path = "${abspath(path.module)}/scripts/tp-deployer.sh"
 }
