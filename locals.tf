@@ -13,6 +13,7 @@ locals {
     PRE_TETRAGON_INSTALL_SCRIPT        = var.pre_tetragon_install_script != "" ? base64encode(var.pre_tetragon_install_script) : ""   // The script to execute before installing Tetragon.
     POST_TETRAGON_INSTALL_SCRIPT       = var.post_tetragon_install_script != "" ? base64encode(var.post_tetragon_install_script) : "" // The script to execute after installing Tetragon.
     WAIT_FOR_TETRAGON_CRDS             = var.wait_for_tetragon_crds
+    WAIT_FOR_TETRAGON_CRDS_TIMEOUT     = var.wait_for_tetragon_crds_timeout
   }
   provisioner_path        = "${abspath(path.module)}/scripts/provisioner.sh"
   tp_deployer_environment = merge(var.extra_tp_deployer_environment_variables, local.tp_deployer_environment_variables) // The full set of environment variables passed to the TracingPolicy deployment script.

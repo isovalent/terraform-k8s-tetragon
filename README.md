@@ -68,6 +68,7 @@ No modules.
 | <a name="input_tetragon_namespace"></a> [tetragon\_namespace](#input\_tetragon\_namespace) | The namespace in which to install Tetragon. | `string` | `"kube-system"` | no |
 | <a name="input_tetragon_tracingpolicy_directory"></a> [tetragon\_tracingpolicy\_directory](#input\_tetragon\_tracingpolicy\_directory) | Path to the directory where TracingPolicy files are stored which should automatically be applied. The directory can contain one or multiple valid TracingPoliciy YAML files. | `string` | `""` | no |
 | <a name="input_wait_for_tetragon_crds"></a> [wait\_for\_tetragon\_crds](#input\_wait\_for\_tetragon\_crds) | Whether to wait for the Tetragon CRDs to be created before proceeding with the post-install script. | `bool` | `true` | no |
+| <a name="input_wait_for_tetragon_crds_timeout"></a> [wait\_for\_tetragon\_crds\_timeout](#input\_wait\_for\_tetragon\_crds\_timeout) | Defines the number of seconds to wait for the CRDs to be successfully applied. Only relevant if wait\_for\_tetragon\_crds is enabled. | `number` | `120` | no |
 
 ### Outputs
 

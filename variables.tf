@@ -78,3 +78,9 @@ variable "wait_for_tetragon_crds" {
   description = "Whether to wait for the Tetragon CRDs to be created before proceeding with the post-install script."
   type        = bool
 }
+
+variable "wait_for_tetragon_crds_timeout" {
+  default     = 120
+  description = "Defines the number of seconds to wait for the CRDs to be successfully applied. Only relevant if wait_for_tetragon_crds is enabled."
+  type        = number
+}

@@ -45,7 +45,7 @@ then
   set +e
   until kubectl get crd tracingpolicies.cilium.io
   do
-    if [[ ${TETRAGON_CRD_AVAILABILITY_COUNT} -gt 60 ]];
+    if [[ ${TETRAGON_CRD_AVAILABILITY_COUNT} -gt ${WAIT_FOR_TETRAGON_CRDS_TIMEOUT} ]];
     then
       echo "Tetragon CRDs are not available. Check Tetragon installation."
       exit 1
